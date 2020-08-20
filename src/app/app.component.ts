@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'partners-app';
+  message = "!!Angular 10!!";
 }

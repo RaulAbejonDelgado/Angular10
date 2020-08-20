@@ -1,0 +1,29 @@
+<div class="card border-secondary mb-3" >
+        <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+            <h5 class="card-title">List of partners</h5>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">surname</th>
+                        <th scope="col">email</th>
+                        <th scope="col">createdAt</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let partner of partners" class="card-text">
+                        <td>{{partner.id}}</td>
+                        <td>{{partner.name}}</td>
+                        <td>{{partner.surname}}</td>
+                        <td>@{{partner.email}}</td>
+                        <td>@{{partner.createdAt}}</td>
+                        <!-- <td><button type="button" name="button" [routerLink]="['/partner/form', partner.id]" class="btn btn-primary">Edit</button></td> -->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    
