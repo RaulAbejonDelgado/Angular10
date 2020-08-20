@@ -1,0 +1,18 @@
+<p>works</p>
+<form (ngSubmit)="create()">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="partner.name" name="name" id="name" placeholder="Name">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="surname">Surname</label>
+        <input type="text" class="form-control" [(ngModel)]="partner.surname" name="surname" id="surname" placeholder="Surname">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="surname">Email</label>
+        <input type="text" class="form-control" [(ngModel)]="partner.email" name="email" id="email" placeholder="Email">
+      </div>
+    </div>  
+    <button type="submit" class="btn btn-primary" role="button">Create</button>
+</form>

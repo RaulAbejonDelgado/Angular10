@@ -10,6 +10,8 @@ import { DirectivaComponent } from './directiva/directiva.component';
 import { PartnersComponent } from './components/partners/partners.component';
 import{ RouterModule, Routes} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { PartnerFormComponent } from './components/partner-form/partner-form.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -26,12 +28,14 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     DirectivaComponent,
-    PartnersComponent
+    PartnersComponent,
+    PartnerFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [PartnerService],
   bootstrap: [AppComponent]

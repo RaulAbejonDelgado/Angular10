@@ -10,6 +10,8 @@ import {map} from 'rxjs/operators'
 })
 export class PartnerService {
   private urlPartners = "https://cors-anywhere.herokuapp.com/https://spring-framework-5-app.herokuapp.com/api/partner/list-partner";
+  private editPartners = "https://cors-anywhere.herokuapp.com/https://spring-framework-5-app.herokuapp.com/api/partner";
+  private editLocalPartners = "http://localhost:8080/api/partner";
   private httpHeaders: HttpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   constructor(private http: HttpClient) { }
@@ -25,7 +27,7 @@ export class PartnerService {
   }
 
   createPartner(partner: Partner) : Observable<Partner> {
-    return this.http.post<Partner>(this.urlPartners, partner, {headers: this.httpHeaders})
+    return this.http.post<Partner>(this.editPartners, partner, {headers: this.httpHeaders})
   }
 
   getPartner(id) : Observable<Partner> {
