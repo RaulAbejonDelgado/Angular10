@@ -1,18 +1,51 @@
-<p>works</p>
-<form (ngSubmit)="create()">
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" [(ngModel)]="partner.name" name="name" id="name" placeholder="Name">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="surname">Surname</label>
-        <input type="text" class="form-control" [(ngModel)]="partner.surname" name="surname" id="surname" placeholder="Surname">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="surname">Email</label>
-        <input type="text" class="form-control" [(ngModel)]="partner.email" name="email" id="email" placeholder="Email">
-      </div>
+{{errors | json}}
+<div class="card text-center">
+    <div class="card-header">
+        <button type="button" class="btn btn-primary" (click)="enableDiscableButton()">{{enable == true ? 'Hide Partner detail' : 'Show Partner detail' }}</button>
+    </div>
+    <div *ngIf="enable == true">
+        <div class="card-body">
+            <h5 class="card-title">{{partner.name}} {{partner.surname}}</h5>
+            <p class="card-text"><img style="width:100px; height: 80px;" [src]="partner.photo?.length > 0 ? 'http://localhost:8080/api/uploads/'+ partner?.photo : 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg'" /></p>
+          </div>
+          <div class="card-footer text-muted">
+              {{partner.createAt}}
+          </div>
     </div>  
-    <button type="submit" class="btn btn-primary" role="button">Create</button>
-</form>
+    <form (ngSubmit)="updateFullPartner()">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="partner.name" name="name" id="name" placeholder="Name">
+            <div class="alert alert-warning">
+              
+              <ul *ngFor="let error of errors">
+                <li> {{errors | json}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="surname">Surname</label>
+            <input type="text" class="form-control" [(ngModel)]="partner.surname" name="surname" id="surname" placeholder="Surname">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="surname">Email</label>
+            <input type="text" class="form-control" [(ngModel)]="partner.email" name="email" id="email" placeholder="Email">
+          </div>
+          <div class="form-group col-md-3">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" [(ngModel)]="partner.createAt" name="createAt" id="createAt" placeholder="createAt">
+          </div>
+        </div> 
+        <div class="form-row">
+            <div class="form-group col-md-8 align-self-center">
+                <label for="photo">Photo</label>
+                <input (change)="selectPhoto($event)" type="file" class="form-control" name="photo" id="photo" placeholder="photo">
+              </div>
+        </div>
+        <button type="submit" class="btn btn-primary" role="button">{{ partner.id > 0 ?  'Upload' : 'Create'}}</button>
+        <!-- <button (click)="selectPhoto()" type="submit" class="btn btn-primary" role="button">Update photo</button> -->
+    </form>
+  </div>
+
+  
