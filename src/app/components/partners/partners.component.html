@@ -1,29 +1,41 @@
 <div class="card border-secondary mb-3" >
-        <div class="card-header">Header</div>
-            <div class="card-body text-secondary">
+        <div class="card-header text-center">
             <h5 class="card-title">List of partners</h5>
+        </div>
+            <div class="card-body text-secondary">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">id</th>
+                        <th scope="col">Photo</th>
+                        <th style="display:none" scope="col">id</th>
                         <th scope="col">name</th>
                         <th scope="col">surname</th>
                         <th scope="col">email</th>
                         <th scope="col">createdAt</th>
                         <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let partner of partners" class="card-text">
-                        <td>{{partner.id}}</td>
-                        <td>{{partner.name}}</td>
-                        <td>{{partner.surname}}</td>
-                        <td>@{{partner.email}}</td>
-                        <td>@{{partner.createdAt}}</td>
-                        <!-- <td><button type="button" name="button" [routerLink]="['/partner/form', partner.id]" class="btn btn-primary">Edit</button></td> -->
-                    </tr>
+                        <tr *ngFor="let partner of partners" class="card-text">
+                            <td><img style="width:100px; height: 80px;"  [src]="partner.photo.length > 0 ? herokuEndpoint + partner.photo : 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg'"/></td>
+                            <td style="display:none">{{partner.id}}</td>
+                            <td>{{partner.name}}</td>
+                            <td>{{partner.surname}}</td>
+                            <td>{{partner.email}}</td>
+                            <td>{{partner.createAt}}</td>
+                            <td><button type="button" name="button" [routerLink]="['/partner-form', partner.id]" class="btn btn-primary">Edit</button></td>
+                            <td><button type="button" name="button" (click)= "deletePartner()" [routerLink]="['/partners', partner.id]" class="btn btn-primary">Delete</button></td>
+                        </tr>
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" [ngClass]="currentPage == 0 ? 'disabled' : ''"><a class="page-link" [routerLink]="['/partners/page',currentPage > 0 ? currentPage - 1 : 0]">&lt;&lt;</a></li>
+                        <li *ngFor="let page of pagesNumbers; let i = index;" [ngClass]="currentPage + 1  == pagesNumbers[i] ? 'disabled' : ''" class="page-item"><a class="page-link" [routerLink]="['/partners/page', pagesNumbers[i] - 1 ]">{{pagesNumbers[i] }}</a></li>
+                        <li class="page-item" [ngClass]="currentPage + 1 == pagesNumbers[pagesNumbers?.length - 1] ? 'disabled' : ''"><a class="page-link" [routerLink]="['/partners/page',currentPage == pagesNumbers[pagesNumbers?.length - 1] ? pagesNumbers[pagesNumbers?.length - 1] : currentPage + 1]" >&gt;&gt;</a></li>
+                    </ul>
+                </nav>
             </div>
     </div>
     

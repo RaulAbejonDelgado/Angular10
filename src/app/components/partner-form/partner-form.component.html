@@ -1,4 +1,3 @@
-{{errors | json}}
 <div class="card text-center">
     <div class="card-header">
         <button type="button" class="btn btn-primary" (click)="enableDiscableButton()">{{enable == true ? 'Hide Partner detail' : 'Show Partner detail' }}</button>
@@ -6,7 +5,7 @@
     <div *ngIf="enable == true">
         <div class="card-body">
             <h5 class="card-title">{{partner.name}} {{partner.surname}}</h5>
-            <p class="card-text"><img style="width:100px; height: 80px;" [src]="partner.photo?.length > 0 ? 'http://localhost:8080/api/uploads/'+ partner?.photo : 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg'" /></p>
+            <p class="card-text"><img style="width:100px; height: 80px;" [src]="partner.photo?.length > 0 ? herokuEndpoint + partner?.photo : 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg'" /></p>
           </div>
           <div class="card-footer text-muted">
               {{partner.createAt}}
@@ -16,33 +15,57 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="name">Name</label>
-            <input type="text" class="form-control" [(ngModel)]="partner.name" name="name" id="name" placeholder="Name">
-            <div class="alert alert-warning">
-              
+            <input type="text" class="form-control" [(ngModel)]="partner.name" name="name" id="name" placeholder="Name">           
               <ul *ngFor="let error of errors">
-                <li> {{errors | json}}</li>
+                <li *ngIf="error.field == 'name'" class="alert alert-warning"> {{error.defaultMessage}}</li>
               </ul>
-            </div>
           </div>
           <div class="form-group col-md-3">
             <label for="surname">Surname</label>
-            <input type="text" class="form-control" [(ngModel)]="partner.surname" name="surname" id="surname" placeholder="Surname">
+            <input type="text" class="form-control" [(ngModel)]="partner.surname" name="surname" id="surname" placeholder="Surname">          
+                <ul *ngFor="let error of errors">
+                  <li *ngIf="error.field == 'surname'" class="alert alert-warning"> {{error.defaultMessage}}</li>
+                </ul>
           </div>
           <div class="form-group col-md-3">
             <label for="surname">Email</label>
-            <input type="text" class="form-control" [(ngModel)]="partner.email" name="email" id="email" placeholder="Email">
+            <input type="text" class="form-control" [(ngModel)]="partner.email" name="email" id="email" placeholder="Email">           
+                <ul *ngFor="let error of errors">
+                  <li *ngIf="error.field == 'email'" class="alert alert-warning"> {{error.defaultMessage}}</li>
+                </ul>
           </div>
           <div class="form-group col-md-3">
               <label for="date">Date</label>
-              <input type="date" class="form-control" [(ngModel)]="partner.createAt" name="createAt" id="createAt" placeholder="createAt">
+              <input type="date" class="form-control" [(ngModel)]="partner.createAt" name="createAt" id="createAt" placeholder="createAt">          
+                  <ul *ngFor="let error of errors">
+                    <li *ngIf="error.field == 'date'" class="alert alert-warning"> {{error.defaultMessage}}</li>
+                  </ul>
           </div>
         </div> 
         <div class="form-row">
             <div class="form-group col-md-8 align-self-center">
                 <label for="photo">Photo</label>
-                <input (change)="selectPhoto($event)" type="file" class="form-control" name="photo" id="photo" placeholder="photo">
-              </div>
+                <input (change)="selectPhoto($event)" type="file" class="form-control" name="photo" id="photo" placeholder="photo">          
+                    <ul *ngFor="let error of errors">
+                      <li *ngIf="error.field == 'photo'" class="alert alert-warning"> {{error.defaultMessage}}</li>
+                    </ul>
+            </div>   
+            <div class="form-group col-md-4 align-self-center">
+                <label for="region">Region</label>
+                <!-- <input type="select" class="form-control" name="region" id="region" placeholder="region">          
+                  <ul *ngFor="let region of errors">
+                    <li *ngIf="error.field == 'photo'" class="alert alert-warning"> {{error.defaultMessage}}</li>
+                  </ul> -->
+                <select [compareWith]="compareRegion" class="form-control" [(ngModel)]="partner.region" name="region">
+                  <option *ngFor="let region of regions" [ngValue]="region">{{region.name}}</option>
+                </select>
+            </div>          
         </div>
+        <div *ngIf="progress > 0" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: progress + '%'}">
+              {{progress}} %
+            </div>
+          </div>
         <button type="submit" class="btn btn-primary" role="button">{{ partner.id > 0 ?  'Upload' : 'Create'}}</button>
         <!-- <button (click)="selectPhoto()" type="submit" class="btn btn-primary" role="button">Update photo</button> -->
     </form>

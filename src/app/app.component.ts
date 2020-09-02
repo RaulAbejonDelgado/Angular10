@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'partners-app';
+  title = '!!Angular 10!!';
   message = "!!Angular 10!!";
 }

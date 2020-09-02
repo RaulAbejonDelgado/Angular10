@@ -8,10 +8,16 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { PartnersComponent } from './components/partners/partners.component';
-import{ RouterModule, Routes} from '@angular/router';
+import { Routes} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { PartnerFormComponent } from './components/partner-form/partner-form.component';
 import {FormsModule} from '@angular/forms';
+import { PartnerDetailComponent } from './components/partner-detail/partner-detail.component';
+import { Region } from './model/region';
+import { LoginComponent } from './components/login/login.component';
+
+
+
 
 
 
@@ -29,7 +35,9 @@ const routes: Routes = [
     FooterComponent,
     DirectivaComponent,
     PartnersComponent,
-    PartnerFormComponent
+    PartnerFormComponent,
+    PartnerDetailComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
